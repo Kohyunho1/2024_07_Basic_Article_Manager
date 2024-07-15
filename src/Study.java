@@ -2,9 +2,9 @@
 public class Study {
 	public static void main(String[] args) {
 		
-		int x = 5;
-		int y = 8;
-		
-		System.out.println("x : " + x + y);
+		int a = 8;
+		System.out.println("8 * 1 = " + (a*1));
+		System.out.println("8 * 1 = " + (a*2));
+		System.out.println("8 * 1 = " + (a*3));
 	}
 }
