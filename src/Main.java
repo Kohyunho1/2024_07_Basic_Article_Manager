@@ -32,8 +32,8 @@ public class Main {
 				String body = sc.nextLine();
 				
 				lastArticleId++;
-				
-				Article article = new Article(lastArticleId, title, body);
+		        
+				Article article = new Article(lastArticleId, Util.getDateStr(), title, body);
 				
 				articles.add(article);
 				
@@ -46,30 +46,30 @@ public class Main {
 					continue;
 				}
 				
-				System.out.println("번호	|	제목");
+				System.out.println("번호	|	제목	|	작성일");
 				
 				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
-					System.out.printf("%d	|	%s\n", article.id, article.title);
+					System.out.printf("%d	|	%s	|	%s\n", article.id, article.title, article.regDate);
 				}
 				
 			} else if (cmd.startsWith("article detail ")) {
-				String [] cmdBits = cmd.split(" ");
-				
+				String[] cmdBits = cmd.split(" ");
+
 				int id = 0;
 				
 				try {
 					id = Integer.parseInt(cmdBits[2]);
 				} catch (NumberFormatException e) {
-					System.out.println("명령어가 올바르지 않습니다.");
+					System.out.println("명령어가 올바르지 않습니다");
 					continue;
 				} catch (Exception e) {
 					System.out.println("error : " + e);
-				} 
+				}
 				
 				Article foundArticle = null;
 				
-				for (Article article : articles) {
+				for (Article article : articles){
 					if (id == article.id) {
 						foundArticle = article;
 						break;
@@ -77,31 +77,32 @@ public class Main {
 				}
 				
 				if (foundArticle == null) {
-					System.out.println(id + "번 게시물은 존재하지 않습니다.");
+					System.out.println(id + "번 게시물은 존재하지 않습니다");
 					continue;
 				}
 				
 				System.out.printf("번호 : %d\n", foundArticle.id);
+				System.out.printf("작성일 : %s\n", foundArticle.regDate);
 				System.out.printf("제목 : %s\n", foundArticle.title);
 				System.out.printf("내용 : %s\n", foundArticle.body);
 				
-			} else if (cmd.startsWith("article delete ")) {
-				String [] cmdBits = cmd.split(" ");
-				
+			} else if (cmd.startsWith("article modify ")) {
+				String[] cmdBits = cmd.split(" ");
+
 				int id = 0;
 				
 				try {
 					id = Integer.parseInt(cmdBits[2]);
 				} catch (NumberFormatException e) {
-					System.out.println("명령어가 올바르지 않습니다.");
+					System.out.println("명령어가 올바르지 않습니다");
 					continue;
 				} catch (Exception e) {
 					System.out.println("error : " + e);
-				} 
+				}
 				
 				Article foundArticle = null;
 				
-				for (Article article : articles) {
+				for (Article article : articles){
 					if (id == article.id) {
 						foundArticle = article;
 						break;
@@ -109,13 +110,51 @@ public class Main {
 				}
 				
 				if (foundArticle == null) {
-					System.out.println(id + "번 게시물은 존재하지 않습니다.");
+					System.out.println(id + "번 게시물은 존재하지 않습니다");
+					continue;
+				}
+				
+				System.out.printf("수정할 제목 : ");
+				String title = sc.nextLine();
+				System.out.printf("수정할 내용 : ");
+				String body = sc.nextLine();
+				
+				foundArticle.title = title;
+				foundArticle.body = body;
+				
+				System.out.println(id + "번 게시물을 수정했습니다");
+				
+			} else if (cmd.startsWith("article delete ")) {
+				String[] cmdBits = cmd.split(" ");
+
+				int id = 0;
+				
+				try {
+					id = Integer.parseInt(cmdBits[2]);
+				} catch (NumberFormatException e) {
+					System.out.println("명령어가 올바르지 않습니다");
+					continue;
+				} catch (Exception e) {
+					System.out.println("error : " + e);
+				}
+				
+				Article foundArticle = null;
+				
+				for (Article article : articles){
+					if (id == article.id) {
+						foundArticle = article;
+						break;
+					}
+				}
+				
+				if (foundArticle == null) {
+					System.out.println(id + "번 게시물은 존재하지 않습니다");
 					continue;
 				}
 				
 				articles.remove(foundArticle);
 				
-				System.out.println(id + "번 게시물을 삭제했습니다.");
+				System.out.println(id + "번 게시물을 삭제했습니다");
 				
 			} else {
 				System.out.println("존재하지 않는 명령어 입니다");
@@ -130,11 +169,13 @@ public class Main {
 
 class Article {
 	int id;
+	String regDate;
 	String title;
 	String body;
 	
-	public Article(int id, String title, String body) {
+	public Article(int id, String regDate, String title, String body) {
 		this.id = id;
+		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
 	}
