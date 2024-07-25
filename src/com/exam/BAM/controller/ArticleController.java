@@ -45,11 +45,6 @@ public class ArticleController extends Controller {
 	}
 
 	private void doWrite() {
-		if (loginedMember == null) {
-			System.out.println("로그인이 되어 있지 않습니다");
-			return;
-		}
-
 		System.out.printf("제목 : ");
 		String title = sc.nextLine();
 		System.out.printf("내용 : ");
@@ -132,10 +127,6 @@ public class ArticleController extends Controller {
 	}
 
 	private void doModify() {
-		if (loginedMember == null) {
-			System.out.println("로그인이 되어 있지 않습니다");
-			return;
-		}
 
 		int id = getIdByCmd(cmd);
 
@@ -168,10 +159,6 @@ public class ArticleController extends Controller {
 	}
 
 	private void doDelete() {
-		if (loginedMember == null) {
-			System.out.println("로그인이 되어 있지 않습니다");
-			return;
-		}
 
 		int id = getIdByCmd(cmd);
 
@@ -186,7 +173,7 @@ public class ArticleController extends Controller {
 			System.out.println(id + "번 게시물은 존재하지 않습니다");
 			return;
 		}
-		
+
 		if (loginedMember.getId() != foundArticle.getMemberId()) {
 			System.out.println("해당 게시물에 대한 권한이 없습니다.");
 			return;
